@@ -1,0 +1,11 @@
+---
+address: 0.0.0.0
+timeout: 120
+port: 8080
+log: /code/log/thin.log
+max_conns: 20480
+require: []
+
+max_persistent_conns: 14048
+environment: development
+servers: 1
