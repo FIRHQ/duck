@@ -26,9 +26,8 @@ class ServerAuth
     #
     # 发送消息，目前只需要服务器发消息
     if message['channel'] !~ %r{^/meta/}
-      # msg_token = message['data'] && message['data']['token']
-      message['data'] ||= {}
-      msg_token =  message['data']['token']
+      message['ext'] ||= {}
+      msg_token =  message['ext']['token']
       if msg_token != MSG_TOKEN
         message['error'] = "403::Faye authorize faild #{message}"
       end
