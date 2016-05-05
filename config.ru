@@ -8,9 +8,10 @@ Faye::WebSocket.load_adapter('thin')
 
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
 REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
+REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"] 
 MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "Hello World"
 
-$redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
+$redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD)
 $online_user_redis = Redis::Namespace.new(:flow_api_online_users, redis: $redis) # 保存在线用户
 
 app = Faye::RackAdapter.new(mount: '/faye', timeout: 25)
