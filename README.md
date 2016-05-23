@@ -31,6 +31,7 @@ docker run -d -p 3001:8080 -e DUCK_REDIS_HOST="192.168.31.206" flow/faye:latest
 ```
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
 REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
+REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
 MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "Hello World"
 ```
 其中 `MSG_TOKEN` 为发送消息时的验证。
