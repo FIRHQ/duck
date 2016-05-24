@@ -1,6 +1,7 @@
 FROM ruby:latest
 MAINTAINER atpking (atpking@gmail.com)
-WORKDIR /code
+EXPOSE 8080
+wORKDIR /code
 COPY Gemfile* /code/
 RUN ["bundle", "install"]
 COPY . /code
