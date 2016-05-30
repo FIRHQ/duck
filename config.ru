@@ -32,6 +32,7 @@ class ServerAuth
       if msg_token != MSG_TOKEN
         message['error'] = "403::Faye authorize faild #{message}"
       end
+      message['ext']['token'] = 'love and peace'
     end
     callback.call(message)
   end
