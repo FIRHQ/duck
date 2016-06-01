@@ -17,12 +17,17 @@ $online_user_redis = Redis::Namespace.new(:flow_api_online_users, redis: $redis)
 app = Faye::RackAdapter.new(mount: '/faye', timeout: 25)
 
 class ServerAuth
+  def valid?(user_id, time_stamp, key)
+    true
+  end
+
   def incoming(message, _request, callback)
     if message['channel'] == '/meta/subscribe'
       message['ext'] ||= {}
-      msg_token = message['ext']['socket_token']
       user_id = message['ext']['user_id']
-      message['error'] = '403::Faye authorize faild' if $online_user_redis.get(user_id) != msg_token
+      time_stamp = message['ext']['time_stamp']
+      key = message['ext']['key']
+      message['error'] = '403::Faye authorize faild' unless valid?(user_id, time_stamp, key)
     end
     #
     # 发送消息，目前只需要服务器发消息

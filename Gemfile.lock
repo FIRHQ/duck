@@ -33,6 +33,8 @@ GEM
     multi_json (1.11.2)
     netrc (0.11.0)
     rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
     redis (3.3.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -40,10 +42,15 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (~> 1.0)
+    tilt (2.0.4)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -59,7 +66,8 @@ DEPENDENCIES
   redis
   redis-namespace
   rest-client
+  sinatra
   thin
 
 BUNDLED WITH
-   1.11.2
+   1.12.3

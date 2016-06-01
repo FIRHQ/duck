@@ -7,6 +7,7 @@ else
 end
 
 gem 'faye'
+gem 'sinatra'
 gem 'redis'
 gem 'redis-namespace'
 gem 'thin'
