@@ -41,7 +41,8 @@ class Pumatra < Sinatra::Base
   end
 
   get '/' do
-    "show me the money"
+    content_type :json
+    {status: "show me the money"}.to_json
   end
 
   post '/message/realtime' do
@@ -49,6 +50,8 @@ class Pumatra < Sinatra::Base
     return 403 unless valid?(hash)
     save_log_to_cache(hash)
     send_log_to_channel(hash)
-    "ok"
+    content_type :json
+
+    {status: "ok"}.to_json
   end
 end

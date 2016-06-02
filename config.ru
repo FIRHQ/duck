@@ -13,13 +13,17 @@ REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
 MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "operation cwal"
 
 $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD)
-$online_user_redis = Redis::Namespace.new(:flow_api_online_users, redis: $redis) # 保存在线用户
 
 app = Faye::RackAdapter.new(mount: '/faye', timeout: 25)
 
 class ServerAuth
   def valid?(user_id, time_stamp, key)
     true
+  end
+
+  def send_saved_log
+    log = $redis.zrange("#{job_step.job_id}-#{job_step.index}", 0, -1) || []
+    log.map { |l| l[6..-1] }.join("")
   end
 
   def incoming(message, _request, callback)
@@ -29,6 +33,7 @@ class ServerAuth
       time_stamp = message['ext']['time_stamp']
       key = message['ext']['key']
       message['error'] = '403::Faye authorize faild' unless valid?(user_id, time_stamp, key)
+
     end
     #
     # 发送消息，目前只需要服务器发消息
