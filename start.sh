@@ -1,4 +1,4 @@
 # /usr/bin/env bash
 redis-server &
-ruby realtime.rb & 
+puma -C puma.rb & 
 bundle exec thin start -C thin.yml
