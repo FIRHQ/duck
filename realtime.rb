@@ -4,6 +4,8 @@ require 'json'
 require 'redis'
 require 'redis-namespace'
 
+configure { set :server, :puma }
+
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
 REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
 REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]

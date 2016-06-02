@@ -4,6 +4,7 @@
 require 'faye'
 require 'redis'
 require 'redis-namespace'
+
 Faye::WebSocket.load_adapter('thin')
 
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
