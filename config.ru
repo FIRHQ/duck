@@ -26,7 +26,11 @@ class ServerAuth
     log.map { |l| l[6..-1] }.join("")
   end
 
+  def send_saved_log(channel)
+  end
+
   def incoming(message, _request, callback)
+    puts "from faye: #{message}"
     if message['channel'] == '/meta/subscribe'
       message['ext'] ||= {}
       user_id = message['ext']['user_id']
