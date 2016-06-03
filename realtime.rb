@@ -54,7 +54,7 @@ class Pumatra < Sinatra::Base
     { status: "ok" }.to_json
   end
 
-  post '/message/cached_log' do
+  get '/message/cached_log/:job_id/:index' do
     job_id = params['job_id']
     index = params['index']
     channel = "#{job_id}-#{index}"
