@@ -57,7 +57,7 @@ class Pumatra < Sinatra::Base
   post '/message/cached_log' do
     job_id = params['job_id']
     index = params['index']
-    channel = "/#{job_id}-#{index}"
+    channel = "#{job_id}-#{index}"
     arr = $redis.zrange(channel, 0, -1, with_scores: true)
     content_type :json
     { logs: arr }.to_json
