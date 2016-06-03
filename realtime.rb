@@ -4,7 +4,6 @@ require 'json'
 require 'redis'
 require 'redis-namespace'
 
-
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
 REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
 REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
@@ -13,9 +12,9 @@ DUCK_LOCAL_URL = ENV["DUCK_LOCAL_URL"] || "http://127.0.0.1:8080/faye"
 
 $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD)
 
-configure {
-    set :server, :puma
-}
+configure do
+  set :server, :puma
+end
 
 class Pumatra < Sinatra::Base
   def save_log_to_cache(hash)
@@ -42,7 +41,7 @@ class Pumatra < Sinatra::Base
 
   get '/' do
     content_type :json
-    {status: "show me the money"}.to_json
+    { status: "show me the money" }.to_json
   end
 
   post '/message/realtime' do
@@ -52,6 +51,15 @@ class Pumatra < Sinatra::Base
     send_log_to_channel(hash)
     content_type :json
 
-    {status: "ok"}.to_json
+    { status: "ok" }.to_json
+  end
+
+  post '/message/cached_log' do
+    job_id = params['job_id']
+    index = params['index']
+    channel = "/#{job_id}-#{index}"
+    arr = $redis.zrange(channel, 0, -1, with_scores: true)
+    content_type :json
+    { logs: arr }.to_json
   end
 end

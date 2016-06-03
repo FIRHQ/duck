@@ -3,7 +3,6 @@
 
 require 'faye'
 require 'redis'
-require 'json'
 require 'redis-namespace'
 
 Faye::WebSocket.load_adapter('thin')
@@ -23,11 +22,6 @@ class ServerAuth
     true
   end
 
-  def send_saved_log
-    log = $redis.zrange("#{job_step.job_id}-#{job_step.index}", 0, -1) || []
-    log.map { |l| l[6..-1] }.join("")
-  end
-
   def incoming(message, _request, callback)
     puts "from faye: #{message}"
     if message['channel'] == '/meta/subscribe'
@@ -36,17 +30,9 @@ class ServerAuth
       time_stamp = message['ext']['time_stamp']
       key = message['ext']['key']
       message['error'] = '403::Faye authorize faild' unless valid?(user_id, time_stamp, key)
-      if valid?(user_id, time_stamp, key)
-        unless message["subscription"].start_with? "/user"
-          log = $redis.zrange(message['subscription'][1..-1], 0, -1) || []
-          message['ext'] ||= {}
-          message['ext']['aaa'] = "111"
-          message['ext']['cached_log'] = log.map { |l| l[6..-1] }.join("")
-        end
-      else
+      unless valid?(user_id, time_stamp, key)
         message['error'] = '403::Faye authorize faild' unless valid?(user_id, time_stamp, key)
       end
-
     end
     #
     # 发送消息，目前只需要服务器发消息
