@@ -5,6 +5,8 @@ port: 8880
 log: /code/log/thin.log
 max_conns: 20480
 require: []
+daemonize: true
+
 
 max_persistent_conns: 14048
 environment: development

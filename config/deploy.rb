@@ -41,7 +41,7 @@ set :thin_config_path, -> { "#{shared_path}/config/thin.yml" }
 # Default value for :pty is false
 # set :pty, true
 
-set :linked_dirs, %w(log config tmp/puma tmp/cache tmp/sockets vendor/bundle public/system)
+set :linked_dirs, %w(log config tmp/pids tmp/puma tmp/cache tmp/sockets vendor/bundle public/system)
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
