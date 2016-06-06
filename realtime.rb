@@ -4,7 +4,7 @@ require 'json'
 require 'redis'
 require 'redis-namespace'
 
-REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
+REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "localhost"
 REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
 REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
 MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "operation cwal"
@@ -41,7 +41,7 @@ class Pumatra < Sinatra::Base
 
   get '/' do
     content_type :json
-    { status: "show me the money" }.to_json
+    { status: "show me the money #{env['DUCK_REDIS_HOST']}" }.to_json
   end
 
   post '/message/realtime' do
@@ -58,6 +58,7 @@ class Pumatra < Sinatra::Base
     job_id = params['job_id']
     index = params['index']
     channel = "#{job_id}-#{index}"
+    puts channel
     arr = $redis.zrange(channel, 0, -1, with_scores: true)
     content_type :json
     { logs: arr }.to_json

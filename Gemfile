@@ -13,3 +13,10 @@ gem 'redis'
 gem 'redis-namespace'
 gem 'thin'
 gem 'rest-client'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-puma'
+end
