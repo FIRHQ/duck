@@ -7,9 +7,6 @@ set :deploy_to, '/var/www/duck'
 set :deploy_user, 'deploy'
 set :slack_webhook, 'https://hooks.slack.com/services/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'
 
-set :default_env,   'env_var1' => 'value1',
-                    'env_var2' => 'value2',
-                    'DUCK_REDIS_HOST' => "127.0.0.1"
 set :rvm_ruby_version, '2.3.1'
 
 set :puma_user, fetch(:user)

@@ -7,17 +7,30 @@
 
 
 
+
 ## 简述
-此项目用来告诉 api 日志信息，项目使用docker 进行包装。
+此项目用来告诉 api 日志信息
+
+## cap 部署方式
+
+部署前请确保以下环境变量在机器当中，否则会进行默认设置
+
+REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
+REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
+REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
+MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "operation cwal"
+DUCK_LOCAL_URL = ENV["DUCK_LOCAL_URL"] || "http://127.0.0.1:8080/faye"
 
 
-## 为何使用docker
+## docker 部署方式
+
+### 为何使用docker
 faye 本身无状态，特别适合使用docker 进行性能横向扩展
 
-## 安装前提
+### 安装前提
 - 成功安装 docker
 
-## 安装运行流程
+### 安装运行流程
 docker built -t image名字 .
 docker run -p 映射的端口:8080 -e 要替换的环境变量 image名字
 
@@ -26,7 +39,7 @@ eg:
 docker built -t flow/faye .
 docker run -d -p 3001:8080 -e DUCK_REDIS_HOST="192.168.31.206" flow/faye:latest
 ```
-## 配置项
+### 配置项
 使用环境变量控制以下信息
 ```
 REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "127.0.0.1"
