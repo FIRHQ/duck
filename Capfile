@@ -23,8 +23,9 @@ require 'capistrano/bundler'
 # require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'
 #require 'slackistrano/capistrano'
-#require 'capistrano/puma'
-#require 'capistrano/puma/workers' # if you want to control the workers (in cluster mode)
+
+require 'capistrano/puma'
+require 'capistrano/puma/workers' # if you want to control the workers (in cluster mode)
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }

@@ -16,7 +16,8 @@ set :puma_user, fetch(:user)
 set :puma_threads, [20, 32]
 set :puma_rackup, -> { File.join(current_path, 'message.ru') }
 set :puma_workers, 2
-set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
+set :puma_pid, "#{shared_path}/tmp/puma/puma.pid"
+set :puma_state, "#{shared_path}/tmp/puma/puma.state"
 set :puma_bind, ["tcp://0.0.0.0:4001"]
 
 # Default branch is :master
