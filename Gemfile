@@ -7,6 +7,7 @@ else
 end
 
 gem 'faye'
+gem 'thin'
 gem 'puma'
 gem 'sinatra'
 gem 'redis'
@@ -19,4 +20,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-puma'
+  gem 'capistrano-thin', '~> 1.2.0'
+
 end

@@ -24,6 +24,7 @@ require 'capistrano/bundler'
 # require 'capistrano/passenger'
 #require 'slackistrano/capistrano'
 
+require 'capistrano/thin'
 require 'capistrano/puma'
 require 'capistrano/puma/workers' # if you want to control the workers (in cluster mode)
 

@@ -1,7 +1,7 @@
 ---
 address: 0.0.0.0
 timeout: 120
-port: 8080
+port: 8880
 log: /code/log/thin.log
 max_conns: 20480
 require: []

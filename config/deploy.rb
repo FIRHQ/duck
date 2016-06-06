@@ -19,6 +19,8 @@ set :puma_workers, 2
 set :puma_pid, "#{shared_path}/tmp/puma/puma.pid"
 set :puma_state, "#{shared_path}/tmp/puma/puma.state"
 set :puma_bind, ["tcp://0.0.0.0:4001"]
+set :thin_config_path, -> { "#{shared_path}/config/thin.yml" }
+
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -39,7 +41,7 @@ set :puma_bind, ["tcp://0.0.0.0:4001"]
 # Default value for :pty is false
 # set :pty, true
 
-set :linked_dirs, %w(log tmp/puma tmp/cache tmp/sockets vendor/bundle public/system)
+set :linked_dirs, %w(log config tmp/puma tmp/cache tmp/sockets vendor/bundle public/system)
 # Default value for :linked_files is []
 # set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 
@@ -55,7 +57,7 @@ set :linked_dirs, %w(log tmp/puma tmp/cache tmp/sockets vendor/bundle public/sys
 set :rvm_type, :auto
 set :rvm_ruby_version, '2.3.1'
 set :rvm_roles, [:app, :web, :db]
-
+after 'deploy:publishing', 'thin:restart'
 namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
