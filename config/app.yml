@@ -1,0 +1,6 @@
+---
+  DUCK_REDIS_HOST: 127.0.0.1
+  DUCK_REDIS_PORT: 6379
+  DUCK_REDIS_PASSWORD: ""
+  DUCK_MSG_TOKEN: "operation cwal"
+  DUCK_LOCAL_URL: "http://127.0.0.1:8080/faye"
