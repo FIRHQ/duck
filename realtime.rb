@@ -1,14 +1,17 @@
 require 'sinatra'
 require 'net/http'
 require 'json'
+require 'yaml'
 require 'redis'
 require 'redis-namespace'
 
-REDIS_HOST = ENV["DUCK_REDIS_HOST"] || "localhost"
-REDIS_PORT = ENV["DUCK_REDIS_PORT"] || "6379"
-REDIS_PASSWORD = ENV["DUCK_REDIS_PASSWORD"]
-MSG_TOKEN = ENV["DUCK_MSG_TOKEN"] || "operation cwal"
-DUCK_LOCAL_URL = ENV["DUCK_LOCAL_URL"] || "http://127.0.0.1:8080/faye"
+config = YAML.load_file("./config/app.yml")
+
+REDIS_HOST = config["DUCK_REDIS_HOST"] || "localhost"
+REDIS_PORT = config["DUCK_REDIS_PORT"] || "6379"
+REDIS_PASSWORD = config["DUCK_REDIS_PASSWORD"]
+MSG_TOKEN = config["DUCK_MSG_TOKEN"] || "operation cwal"
+DUCK_LOCAL_URL = config["DUCK_LOCAL_URL"] || "http://127.0.0.1:8080/faye"
 
 $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD)
 
