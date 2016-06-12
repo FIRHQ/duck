@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'net/http'
 require 'json'
 require 'yaml'
@@ -17,6 +18,7 @@ $redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD)
 
 configure do
   set :server, :puma
+  enable :cross_origin
 end
 
 class Pumatra < Sinatra::Base
@@ -41,6 +43,8 @@ class Pumatra < Sinatra::Base
     puts params
     true
   end
+  register Sinatra::CrossOrigin
+
 
   get '/' do
     content_type :json

@@ -7,9 +7,9 @@ else
 end
 
 gem 'faye'
-gem 'thin'
 gem 'puma'
 gem 'sinatra'
+gem "sinatra-cross_origin", "~> 0.3.1"
 gem 'redis'
 gem 'redis-namespace'
 gem 'thin'
