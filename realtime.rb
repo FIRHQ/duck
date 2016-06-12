@@ -63,6 +63,8 @@ class Pumatra < Sinatra::Base
     channel = "#{job_id}-#{index}"
     puts channel
     arr = $redis.zrange(channel, 0, -1, with_scores: true)
+    headers 'Access-Control-Allow-Origin' => '*', 'Access-Control-Allow-Methods' => "GET, POST, PATCH, PUT, DELETE", 'Access-Control-Allow-Headers' => 'accept, accesstoken', 'Access-Control-Allow-Credentials' => true
+
     content_type :json
     { logs: arr }.to_json
   end
